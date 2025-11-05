@@ -136,6 +136,14 @@ public class Synchronization extends JFrame
         return panel;
     }
 
+    private void log(String message)
+    {
+        SwingUtilities.invokeLater(() -> {
+            logArea.append(message + "\n");
+            logArea.setCaretPosition(logArea.getDocument().getLength());
+        });
+    }
+
     public static void main(String[] args) 
     {
         SwingUtilities.invokeLater(() -> {
