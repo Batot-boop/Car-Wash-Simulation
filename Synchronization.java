@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 class Semaphore {
     private int value;
@@ -87,6 +89,7 @@ public class Synchronization extends JFrame
         panel.add(pumpsField);
 
         startButton = new JButton("Start Simulation");
+        startButton.addActionListener(new StartButtonSimulation());
         panel.add(startButton);
 
         addCarButton = new JButton("Add Car");
@@ -142,6 +145,29 @@ public class Synchronization extends JFrame
             logArea.append(message + "\n");
             logArea.setCaretPosition(logArea.getDocument().getLength());
         });
+    }
+
+    private void updatePumpTable(int pumpID, String status, String carID)
+    {
+        SwingUtilities.invokeLater(() -> {
+            pumpsModel.setValueAt(status, pumpID, 1);
+            pumpsModel.setValueAt(carID, pumpID, 2);
+        });
+    }
+
+    class StartButtonSimulation implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            try {
+                startButton.setEnabled(false);
+                addCarButton.setEnabled(true);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(Synchronization.this,
+                "Invalid input! Please enter valid numbers.");
+            }
+        }
     }
 
     public static void main(String[] args) 
