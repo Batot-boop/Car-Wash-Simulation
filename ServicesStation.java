@@ -130,6 +130,20 @@ public class ServicesStation extends JFrame
         });
     }
 
+    private void initializeSimulation()
+    {}
+
+    private void updateWaitingQueue()
+    {
+        SwingUtilities.invokeLater(() -> {
+            waitingQueueModel.setRowCount(0);
+            int position = 1;
+            for (String car : queue) {
+                waitingQueueModel.addRow(new Object[]{car, position++});
+            }
+        });
+    }
+
     private void updatePumpTable(int pumpID, String status, String carID)
     {
         SwingUtilities.invokeLater(() -> {
@@ -195,14 +209,12 @@ public class ServicesStation extends JFrame
     class StartButtonSimulation implements ActionListener
     {
         @Override
-        public void actionPerformed(ActionEvent e)
-        {
+        public void actionPerformed(ActionEvent e) {
             try {
-                startButton.setEnabled(false);
-                addCarButton.setEnabled(true);
+                initializeSimulation();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(ServicesStation.this,
-                "Invalid input! Please enter valid numbers.");
+                JOptionPane.showMessageDialog(ServicesStation.this, 
+                    "Invalid input! Please enter valid numbers.");
             }
         }
     }
