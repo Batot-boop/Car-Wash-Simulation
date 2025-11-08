@@ -136,7 +136,6 @@ public class ServicesStation extends JFrame
     }
     
     private JPanel createLogPanel() 
-
     {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(BorderFactory.createTitledBorder("Log Avtivity"));
